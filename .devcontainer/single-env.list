@@ -1,9 +1,12 @@
 DEPLOYMENT_TYPE=local
+# Needed to start the postgres service
 POSTGRES_HOST=localhost
 POSTGRES_PORT=5432
 POSTGRES_USER=admin
 POSTGRES_PASSWORD=password
 POSTGRES_DB=lumigator
+# SQLALCHEMY_DATABASE_URL=postgresql://admin:password@localhost:5432/lumigator
+SQLALCHEMY_DATABASE_URL=sqlite:////etc/lumigator/data/db/local.db
 S3_ENDPOINT_URL=http://localhost:9000
 AWS_ACCESS_KEY_ID=lumigator
 # test

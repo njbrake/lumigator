@@ -1,8 +1,12 @@
 import contextlib
 from collections.abc import Generator
 
+import sqlite3
+
 from sqlalchemy import Connection, Engine, create_engine
 from sqlalchemy.orm import Session, sessionmaker
+
+from mzai.schemas.extras import DeploymentType
 
 from mzai.backend.settings import settings
 

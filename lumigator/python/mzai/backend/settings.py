@@ -1,6 +1,8 @@
 from pydantic import ByteSize, computed_field
 from pydantic_settings import BaseSettings
-from sqlalchemy.engine import URL
+from sqlalchemy.engine import URL, make_url
+from pathlib import Path
+import os
 
 from mzai.schemas.extras import DeploymentType
 
@@ -9,13 +11,6 @@ class BackendSettings(BaseSettings):
     # Backend
     DEPLOYMENT_TYPE: DeploymentType = DeploymentType.LOCAL
     MAX_DATASET_SIZE: ByteSize = "50MB"
-
-    # Postgres
-    POSTGRES_HOST: str = "localhost"
-    POSTGRES_PORT: int = 5432
-    POSTGRES_USER: str | None = None
-    POSTGRES_PASSWORD: str | None = None
-    POSTGRES_DB: str | None = None
 
     # AWS
     S3_ENDPOINT_URL: str | None = None
@@ -61,14 +56,7 @@ class BackendSettings(BaseSettings):
     @computed_field
     @property
     def SQLALCHEMY_DATABASE_URL(self) -> URL:  # noqa: N802
-        return URL.create(
-            drivername="postgresql",
-            host=self.POSTGRES_HOST,
-            port=self.POSTGRES_PORT,
-            username=self.POSTGRES_USER,
-            password=self.POSTGRES_PASSWORD,
-            database=self.POSTGRES_DB,
-        )
+        return make_url(os.environ.get("SQLALCHEMY_DATABASE_URL", None))
 
 
 settings = BackendSettings()
