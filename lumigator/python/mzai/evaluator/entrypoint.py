@@ -13,8 +13,10 @@ from evaluator.jobs.common import (
 )
 from evaluator.jobs.evaluation.hf_evaluate import run_hf_evaluation
 from evaluator.jobs.evaluation.lm_harness import run_lm_harness
+from evaluator.jobs.inference.inference import run_inference
 from evaluator.paths import strip_path_prefix
 from evaluator.tracking.run_utils import WandbResumeMode
+from mzai.evaluator.configs.jobs.inference import InferenceJobConfig
 
 
 class Evaluator:
@@ -57,6 +59,8 @@ class Evaluator:
                 result = run_lm_harness(lm_harness_config)
             case HuggingFaceEvalJobConfig() as hf_eval_config:
                 result = run_hf_evaluation(hf_eval_config)
+            case InferenceJobConfig() as inference_config:
+                result = run_inference(inference_config)
             case _:
                 raise ValueError(f"Invalid configuration for evaluation: {type(config)}")
         self._generate_artifact_lineage(config, result.artifacts, JobType.EVALUATION)

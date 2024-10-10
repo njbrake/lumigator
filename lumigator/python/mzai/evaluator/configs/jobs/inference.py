@@ -12,25 +12,20 @@ from evaluator.configs.vllm import VLLMCompletionsConfig
 from evaluator.paths import AssetPath
 
 
-class HuggingFaceEvaluationConfig(EvaluatorConfig):
+class InferenceConfig(EvaluatorConfig):
     """Misc settings provided to an lm-harness evaluation job."""
 
-    metrics: conlist(str, min_length=1)
     use_pipeline: bool = False
     enable_tqdm: bool = False
     max_samples: int | None = None
     storage_path: str | None = None
-    return_input_data: bool = False
-    return_predictions: bool = False
 
 
-class HuggingFaceEvalJobConfig(JobConfig):
+class InferenceJobConfig(JobConfig):
     """Configuration to run a HuggingFace evaluation job."""
 
-    dataset: DatasetConfig = Field(
-        description="Dataset holding text to be summarized (examples) and summaries (ground_truth)."
-    )
-    evaluation: HuggingFaceEvaluationConfig
+    dataset: DatasetConfig = Field(description="Dataset holding input text.")
+    inference: InferenceConfig
     model: AutoModelConfig | VLLMCompletionsConfig
     quantization: QuantizationConfig | None = None
     tokenizer: AutoTokenizerConfig

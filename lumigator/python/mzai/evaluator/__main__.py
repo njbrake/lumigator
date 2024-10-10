@@ -3,19 +3,21 @@
 Makes the Evaluator CLI executable via `python -m evaluator`.
 """
 
-from evaluator import entrypoint
 from pathlib import Path
 from typing import TypeVar
+
 import click
+
+from evaluator import entrypoint
 from evaluator.configs.jobs import (
     HuggingFaceEvalJobConfig,
     LMHarnessJobConfig,
 )
-
-
 from evaluator.configs.jobs.common import JobConfig
+from mzai.evaluator.configs.jobs.inference import InferenceJobConfig
 
 ConfigType = TypeVar("ConfigType", bound=JobConfig)
+
 
 def parse_config_option(config_cls: type[ConfigType], config: str) -> ConfigType:
     """Parse the config option string from the CLI.
@@ -28,6 +30,7 @@ def parse_config_option(config_cls: type[ConfigType], config: str) -> ConfigType
     else:
         return config_cls.model_validate_json(config)
 
+
 @click.group(name="Evaluator CLI", help="Entrypoints for the evaluator CLI ")
 def cli():
     pass
@@ -37,7 +40,9 @@ def cli():
 def group() -> None:
     pass
 
+
 cli.add_command(group)
+
 
 @group.command("lm-harness", help="Run the lm-harness evaluation job.")
 @click.option("--config", type=str)
@@ -54,6 +59,16 @@ def huggingface_command(config: str) -> None:
     config = parse_config_option(HuggingFaceEvalJobConfig, config)
     evaluator = entrypoint.Evaluator()
     evaluator.evaluate(config)
+
+
+@cli.command("inference", help="Run the inference job.")
+@click.option("--config", type=str)
+def inference_command(config: str) -> None:
+    print("starting inference...")
+    config = parse_config_option(InferenceJobConfig, config)
+    evaluator = entrypoint.Evaluator()
+    evaluator.evaluate(config)
+
 
 if __name__ == "__main__":
     cli()
