@@ -37,7 +37,7 @@ def predict(dataset_iterable: Iterable, model_client: BaseModelClient) -> list:
 
 
 def save_outputs(config: InferenceJobConfig, evaluation_results: dict) -> Path:
-    storage_path = config.evaluation.storage_path
+    storage_path = config.inference.storage_path
 
     def save_to_disk(local_path: Path):
         logger.info(f"Storing into {local_path}...")
@@ -79,7 +79,7 @@ def inference(config: InferenceJobConfig) -> Path:
     dataset = hf_dataset_loader.load_dataset(config.dataset)
 
     # Limit dataset length if max_samples is specified
-    max_samples = config.evaluation.max_samples
+    max_samples = config.inference.max_samples
     if max_samples and max_samples > 0:
         if max_samples > len(dataset):
             logger.info(f"max_samples ({max_samples}) resized to dataset size ({len(dataset)})")
@@ -88,7 +88,7 @@ def inference(config: InferenceJobConfig) -> Path:
 
     # Enable / disable tqdm
     input_samples = dataset["examples"]
-    dataset_iterable = tqdm(input_samples) if config.evaluation.enable_tqdm else input_samples
+    dataset_iterable = tqdm(input_samples) if config.inference.enable_tqdm else input_samples
 
     # Choose which model client to use
     if isinstance(config.model, VLLMCompletionsConfig):
@@ -107,7 +107,7 @@ def inference(config: InferenceJobConfig) -> Path:
         output_model_name = config.model.path
         # depending on config, use the summarizer pipeline or directly call the model
         # for inference
-        if config.evaluation.use_pipeline:
+        if config.inference.use_pipeline:
             logger.info(f"Using summarization pipeline. Model: {model_name}")
             model_client = SummarizationPipelineModelClient(model_name, config)
         else:

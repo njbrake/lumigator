@@ -14,7 +14,7 @@ from evaluator.configs.jobs import (
     LMHarnessJobConfig,
 )
 from evaluator.configs.jobs.common import JobConfig
-from mzai.evaluator.configs.jobs.inference import InferenceJobConfig
+from evaluator.configs.jobs.inference import InferenceJobConfig
 
 ConfigType = TypeVar("ConfigType", bound=JobConfig)
 

@@ -7,6 +7,7 @@ from evaluator.configs.jobs import (
     JobConfig,
     LMHarnessJobConfig,
 )
+from evaluator.configs.jobs.inference import InferenceJobConfig
 from evaluator.jobs.common import (
     EvaluationResult,
     JobType,
@@ -16,7 +17,6 @@ from evaluator.jobs.evaluation.lm_harness import run_lm_harness
 from evaluator.jobs.inference.inference import run_inference
 from evaluator.paths import strip_path_prefix
 from evaluator.tracking.run_utils import WandbResumeMode
-from mzai.evaluator.configs.jobs.inference import InferenceJobConfig
 
 
 class Evaluator:
