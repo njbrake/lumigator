@@ -10,7 +10,7 @@ from client import ApiClient
 
 
 class Deployments:
-    DEPLOYMENTS_ROUTE = "deployments"
+    DEPLOYMENTS_ROUTE = "ground-truth/deployments"
 
     def __init__(self, c: ApiClient):
         self.client = c
@@ -20,7 +20,7 @@ class Deployments:
     ) -> GroundTruthDeploymentResponse:
         """Creates a new groundtruth deployment."""
         response = (
-            self.client.get_response(f"{self.EXPERIMENTS_ROUTE}"),
+            self.client.get_response(f"{self.DEPLOYMENTS_ROUTE}"),
             HTTPMethod.POST,
             dumps(deployment),
         )
@@ -46,7 +46,7 @@ class Deployments:
         """Returns information on the deployment for the specified ID."""
         UUID(deployment_id)
         response = self.client.get_response(
-            f"{self.EXPERIMENTS_ROUTE}/{deployment_id}", HTTPMethod.DELETE
+            f"{self.DEPLOYMENTS_ROUTE}/{deployment_id}", HTTPMethod.DELETE
         )
 
         if not response:
@@ -59,9 +59,10 @@ class Deployments:
         self, skip: int = 0, limit: int = 100
     ) -> ListingResponse[GroundTruthDeploymentResponse]:
         """Returns information on all deployments."""
-        response = self.client.get_response(f"{self.EXPERIMENTS_ROUTE}")
+        response = self.client.get_response(f"{self.DEPLOYMENTS_ROUTE}")
 
         if not response:
             return []
 
-        return [GroundTruthDeploymentResponse(**args) for args in response.json()]
+        data = response.json()
+        return ListingResponse[GroundTruthDeploymentResponse](**data)

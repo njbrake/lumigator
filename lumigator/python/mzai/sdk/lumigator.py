@@ -1,6 +1,7 @@
 from client import ApiClient
 from completions import Completions
 from experiments import Experiments
+from deployments import Deployments
 from health import Health
 from lm_datasets import Datasets
 
@@ -10,6 +11,7 @@ class LumigatorClient:
         self.client = ApiClient(api_host)
 
         self.completions = Completions(self.client)
+        self.deployments = Deployments(self.client)
         self.experiments = Experiments(self.client)
         self.health = Health(self.client)
         self.datasets = Datasets(self.client)

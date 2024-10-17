@@ -55,9 +55,14 @@ services:
       - AWS_SECRET_ACCESS_KEY=test
       - AWS_DEFAULT_REGION=us-east-2
       - AWS_ENDPOINT_URL=http://localhost:4566
+      - RAY_USE_TLS=1
+      - RAY_TLS_SERVER_CERT=/home/ray/certs/tls.crt
+      - RAY_TLS_SERVER_KEY=/home/ray/certs/tls.key
+      - RAY_TLS_CA_CERT=/home/ray/certs/ca_mzai.crt
 
     volumes:
       - ./lumigator/python/mzai/summarizer/summarizer.py:/home/ray/summarizer.py
+      - ./certs:/home/ray/certs
     # NOTE: to keep AWS_ENDPOINT_URL as http://localhost:4566 both on the host system
     #       and inside containers, we map localhost to the host gateway IP.
     #       This currently works properly, but might be the cause of networking
