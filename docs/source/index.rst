@@ -30,14 +30,29 @@ Examples
 
    examples/README
 
+SDK
+===
+
+.. toctree::
+   :maxdepth: 2
+
+   sdk
+   tests
+
+
 API
 ===
 
-.. automodule:: sdk
-
 .. autosummary::
-   
-   sdk
+   :recursive:
+
+   sdk.client
+   sdk.completions
+   sdk.experiments
+   sdk.health
+   sdk.lm_datasets
+   sdk.lumigator
+   tests
 
 Indices and tables
 ==================

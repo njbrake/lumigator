@@ -10,7 +10,8 @@ import os
 import sys
 sys.path.insert(0, os.path.abspath('../../lumigator/python/mzai/backend'))  # Source code dir relative to this file
 sys.path.insert(0, os.path.abspath('../../lumigator/python/mzai/sdk'))  # Source code dir relative to this file
-sys.path.insert(0, os.path.abspath('../../lumigator/python/mzai'))  # Source code dir relative to this file
+sys.path.insert(0, os.path.abspath('../../lumigator/python/mzai/schemas'))  # Source code dir relative to this file
+# sys.path.insert(0, os.path.abspath('../../lumigator/python/mzai'))  # Source code dir relative to this file
 
 project = "lumigator"
 author = "Vicki Boykis, Davide Eynard, Kyle White"
@@ -22,6 +23,7 @@ extensions = [
     "nbsphinx",
     "myst_parser",
     "sphinx_codeautolink",
+    'sphinx.ext.napoleon',
     'sphinx.ext.autodoc', # Generate doc from docstrings
     'sphinx.ext.autosummary',  # Create neat summary tables
 ]

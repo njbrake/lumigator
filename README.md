@@ -7,7 +7,7 @@ but will be expanding to other machine learning tasks and use-cases.
 See [example notebook](/notebooks/walkthrough.ipynb) for a platform API walkthrough.
 
 
-> ⚠️ **NOTE**
+> ℹ **NOTE**
 >
 > Lumigator is in the early stages of development.
 > It is missing important features and documentation.
@@ -23,14 +23,14 @@ See [example notebook](/notebooks/walkthrough.ipynb) for a platform API walkthro
   + Building
     + See below
   + Using/Testing
-    + [Kubernetes Helm Charts](lumigator/infra/mzai/helm/lumigator/README.md)
+    + [Kubernetes Helm Charts](./lumigator/infra/mzai/helm/lumigator/README.md)
     + [Local install documentation](./.devcontainer/README.md)
 + **Using Lumigator:**
   + [Platform Examples](notebooks/walkthrough.ipynb)
-  + [Lumigator API](lumigator/README.md)
+  + [Lumigator API](./lumigator/README.md)
   + Offline Evaluations with [lm-buddy](https://github.com/mozilla-ai/lm-buddy)
 + **Extending Lumigator:**
-  + [Creating a new Lumigator endpoint](lumigator/python/mzai/backend/api/README.md)
+  + [Creating a new Lumigator endpoint](./lumigator/python/mzai/backend/backend/api/README.md)
 
 
 # Available Machine Learning Tasks
