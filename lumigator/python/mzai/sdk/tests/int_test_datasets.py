@@ -3,8 +3,8 @@ from pathlib import Path
 from time import sleep
 
 from loguru import logger
-from schemas.datasets import DatasetFormat
-from schemas.jobs import JobCreate, JobStatus, JobType
+from lumigator_schemas.datasets import DatasetFormat
+from lumigator_schemas.jobs import JobCreate, JobStatus, JobType
 
 from tests.helpers import check_method, load_json
 

@@ -8,8 +8,8 @@ from http import HTTPMethod
 from uuid import UUID
 
 import requests
-from schemas.extras import ListingResponse
-from schemas.jobs import (
+from lumigator_schemas.extras import ListingResponse
+from lumigator_schemas.jobs import (
     JobCreate,
     JobResponse,
     JobResultDownloadResponse,
@@ -17,7 +17,7 @@ from schemas.jobs import (
     JobType,
 )
 
-from sdk.client import ApiClient
+from lumigator_sdk.client import ApiClient
 
 
 class Jobs:
