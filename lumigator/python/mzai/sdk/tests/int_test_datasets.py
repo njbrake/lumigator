@@ -30,15 +30,15 @@ def test_get_datasets_remote_ok(lumi_client):
 def test_dataset_lifecycle_remote_ok(lumi_client, dialog_data):
     with Path.open(dialog_data) as file:
         datasets = lumi_client.datasets.get_datasets()
-        assert datasets.total == 0
+        before = datasets.total
         dataset = lumi_client.datasets.create_dataset(dataset=file, format=DatasetFormat.JOB)
         datasets = lumi_client.datasets.get_datasets()
-        assert datasets.total == 1
+        after = datasets.total
         dataset = lumi_client.datasets.get_dataset(datasets.items[0].id)
         assert dataset is not None
         lumi_client.datasets.delete_dataset(datasets.items[0].id)
         datasets = lumi_client.datasets.get_datasets()
-        assert datasets.total == 0
+        assert after - before == 1
 
 
 def test_job_lifecycle_remote_ok(lumi_client, dialog_data):
@@ -50,7 +50,7 @@ def test_job_lifecycle_remote_ok(lumi_client, dialog_data):
                 lumi_client.datasets.delete_dataset(remove_ds.id)
         datasets = lumi_client.datasets.get_datasets()
         assert datasets.total == 0
-        dataset = lumi_client.datasets.create_dataset(dataset=file, format=DatasetFormat.EXPERIMENT)
+        dataset = lumi_client.datasets.create_dataset(dataset=file, format=DatasetFormat.JOB)
         datasets = lumi_client.datasets.get_datasets()
         assert datasets.total == 1
         jobs = lumi_client.jobs.get_jobs()

@@ -66,8 +66,8 @@ class Jobs:
         """
         for _ in range(1, retries):
             # http://localhost:8265/api/jobs/f311fa44-025a-4703-b8ba-7e0b1001b484
-            # response = self.client.get_response(f"{self.JOBS_ROUTE}/{id}")
-            response = requests.get(f"http://localhost:8265/api/jobs/{id}")
+            response = self.client.get_ray_job_response(f'{id}')
+            # response = requests.get(f"http://localhost:8265/api/jobs/{id}")
             jobinfo = response.json()
             if jobinfo["status"] == "PENDING" or jobinfo["status"] == "RUNNING":
                 await asyncio.sleep(poll_wait)
@@ -94,7 +94,7 @@ class Jobs:
             JobResponse: the information for the newly created job.
         """
         response = self.client.get_response(
-            f"{self.JOBS_ROUTE}/{type.value}",
+            f"{self.JOBS_ROUTE}/{type.value}/",
             method=HTTPMethod.POST,
             data=request.model_dump_json(),
         )
